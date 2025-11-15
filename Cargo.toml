@@ -1,5 +1,8 @@
+[net]
+git-fetch-with-cli = true
+
 [package]
-name = "blake2b_rfc"
+name = "blake2-rfc"
 version = "0.2.5"
 authors = ["Jack O'Connor"]
 description = "a pure Rust BLAKE2b implementation with dynamic SIMD"
