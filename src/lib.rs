@@ -22,7 +22,7 @@
 //! # Example
 //!
 //! ```
-//! use blake2b_simd::{blake2b, Params};
+//! use blake2b_rfc::{blake2b, Params};
 //!
 //! let expected = "ca002330e69d3e6b84a46a56a6533fd79d51d97a3bb7cad6c2ff43b354185d6d\
 //!                 c1e723fb3db4ae0737e120378424c714bb982d9dc5bbd7a0ab318240ddd18f8d";
@@ -79,7 +79,7 @@
 //!                ╭────────────┬────────────╮
 //!                │ portable   │ AVX2       │
 //! ╭──────────────┼────────────┼────────────┤
-//! │ blake2b_simd │ 0.771 GB/s │ 1.005 GB/s │
+//! │ blake2b_rfc  │ 0.771 GB/s │ 1.005 GB/s │
 //! │ libsodium    │ 0.743 GB/s │ 0.939 GB/s │
 //! ╰──────────────┴────────────┴────────────╯
 //! ```
@@ -89,8 +89,8 @@
 //!
 //! ```table
 //! ╭───────────────────────────┬────────────╮
-//! │ blake2b_simd b2sum --mmap │ 0.676 GB/s │
-//! │ blake2b_simd b2sum        │ 0.649 GB/s │
+//! │ blake2b_rfc  b2sum --mmap │ 0.676 GB/s │
+//! │ blake2b_rfc  b2sum        │ 0.649 GB/s │
 //! │ coreutils sha1sum         │ 0.628 GB/s │
 //! │ coreutils b2sum           │ 0.536 GB/s │
 //! │ coreutils md5sum          │ 0.476 GB/s │
@@ -164,7 +164,7 @@ type Block = [u8; BLOCKBYTES];
 /// # Example
 ///
 /// ```
-/// # use blake2b_simd::{blake2b, Params};
+/// # use blake2b_rfc::{blake2b, Params};
 /// let expected = "ca002330e69d3e6b84a46a56a6533fd79d51d97a3bb7cad6c2ff43b354185d6d\
 ///                 c1e723fb3db4ae0737e120378424c714bb982d9dc5bbd7a0ab318240ddd18f8d";
 /// let hash = blake2b(b"foo");
@@ -186,7 +186,7 @@ pub fn blake2b(input: &[u8]) -> Hash {
 /// # Example
 ///
 /// ```
-/// # use blake2b_simd::Params;
+/// # use blake2b_rfc::Params;
 /// let mut state = Params::new().hash_length(32).to_state();
 /// ```
 #[derive(Clone)]
@@ -344,9 +344,9 @@ impl fmt::Debug for Params {
 /// # Example
 ///
 /// ```
-/// use blake2b_simd::{State, blake2b};
+/// use blake2b_rfc::{State, blake2b};
 ///
-/// let mut state = blake2b_simd::State::new();
+/// let mut state = blake2b_rfc::State::new();
 ///
 /// state.update(b"foo");
 /// assert_eq!(blake2b(b"foo"), state.finalize());

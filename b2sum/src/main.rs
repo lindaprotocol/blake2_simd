@@ -1,11 +1,11 @@
-extern crate blake2b_simd;
+extern crate blake2b_rfc;
 extern crate memmap;
 extern crate os_pipe;
 extern crate rayon;
 #[macro_use]
 extern crate structopt;
 
-use blake2b_simd::{blake2bp, Hash, Params, State};
+use blake2b_rfc::{blake2bp, Hash, Params, State};
 use std::fs::File;
 use std::io;
 use std::io::prelude::*;

@@ -1,6 +1,6 @@
 #![feature(test)]
 
-extern crate blake2b_simd;
+extern crate blake2b_rfc;
 #[cfg(feature = "libsodium-ffi")]
 extern crate libsodium_ffi;
 #[cfg(feature = "openssl")]
@@ -8,7 +8,7 @@ extern crate openssl;
 extern crate rayon;
 extern crate test;
 
-use blake2b_simd::*;
+use blake2b_rfc::*;
 use test::Bencher;
 
 const BLOCK: &[u8; BLOCKBYTES] = &[0; BLOCKBYTES];

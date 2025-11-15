@@ -2,12 +2,12 @@
 name = "b2sum"
 version = "0.1.0"
 authors = ["Jack O'Connor"]
-description = "a clone of the coreutils b2sum utility based on blake2b_simd"
+description = "a clone of the coreutils b2sum utility based on blake2b_rfc"
 license = "MIT"
-repository = "https://github.com/oconnor663/blake2b_simd/tree/master/b2sum"
+repository = "https://github.com/lindaprotocol/blake2b_simd/tree/master/b2sum"
 
 [dependencies]
-blake2b_simd = { path = "..", features = ["blake2bp"] }
+blake2b_rfc = { path = "..", features = ["blake2bp"] }
 memmap = "0.7.0"
 os_pipe = "0.8.0"
 rayon = "1.0.2"

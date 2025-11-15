@@ -8,7 +8,7 @@
 //! AVX2 regardless, because of its local annotations. Also the nightly compiler seems to produce
 //! faster code than stable.
 
-extern crate blake2b_simd;
+extern crate blake2b_rfc;
 
 use std::time::{Duration, Instant};
 
@@ -17,10 +17,10 @@ const INPUT_LEN: usize = 1_000_000_000;
 const RUNS: usize = 10;
 
 #[inline(never)]
-fn hash(input: &[u8], force_portable: bool) -> blake2b_simd::Hash {
-    let mut state = blake2b_simd::State::new();
+fn hash(input: &[u8], force_portable: bool) -> blake2b_rfc::Hash {
+    let mut state = blake2b_rfc::State::new();
     if force_portable {
-        blake2b_simd::benchmarks::force_portable(&mut state);
+        blake2b_rfc::benchmarks::force_portable(&mut state);
     }
     state.update(&input);
     state.finalize()

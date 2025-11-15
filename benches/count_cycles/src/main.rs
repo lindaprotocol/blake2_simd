@@ -1,7 +1,7 @@
 #![feature(test)]
 
 extern crate amd64_timer;
-extern crate blake2b_simd;
+extern crate blake2b_rfc;
 extern crate openssl;
 extern crate test;
 
@@ -16,7 +16,7 @@ fn compression_fn() -> (u64, usize) {
         let input = &[0; 128];
         let mut h = [0; 8];
         unsafe {
-            blake2b_simd::benchmarks::compress_avx2(&mut h, input, 0, 0, 0);
+            blake2b_rfc::benchmarks::compress_avx2(&mut h, input, 0, 0, 0);
         }
         test::black_box(&h);
         let end = amd64_timer::ticks_modern();
@@ -31,7 +31,7 @@ fn hash_one_block() -> (u64, usize) {
     let mut total_ticks = 0;
     for _ in 0..iterations {
         let start = amd64_timer::ticks_modern();
-        test::black_box(&blake2b_simd::blake2b(&[0; SIZE]));
+        test::black_box(&blake2b_rfc::blake2b(&[0; SIZE]));
         let end = amd64_timer::ticks_modern();
         total_ticks += end - start;
     }
@@ -44,7 +44,7 @@ fn hash_one_mb() -> (u64, usize) {
     let mut total_ticks = 0;
     for _ in 0..iterations {
         let start = amd64_timer::ticks_modern();
-        test::black_box(&blake2b_simd::blake2b(&[0; SIZE]));
+        test::black_box(&blake2b_rfc::blake2b(&[0; SIZE]));
         let end = amd64_timer::ticks_modern();
         total_ticks += end - start;
     }
@@ -58,7 +58,7 @@ fn hash_one_mb_in_chunks() -> (u64, usize) {
     let mut total_ticks = 0;
     for _ in 0..iterations {
         let start = amd64_timer::ticks_modern();
-        let mut state = blake2b_simd::State::new();
+        let mut state = blake2b_rfc::State::new();
         for _ in 0..(SIZE / CHUNK_SIZE) {
             state.update(&[0; CHUNK_SIZE]);
         }

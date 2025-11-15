@@ -24,7 +24,7 @@ An implementation of the BLAKE2b hash with:
 ## Example
 
 ```rust
-use blake2b_simd::{blake2b, Params};
+use blake2b_rfc::{blake2b, Params};
 
 let expected = "ca002330e69d3e6b84a46a56a6533fd79d51d97a3bb7cad6c2ff43b354185d6d\
                 c1e723fb3db4ae0737e120378424c714bb982d9dc5bbd7a0ab318240ddd18f8d";
@@ -81,7 +81,7 @@ using libsodium's implementation of BLAKE2b. Here are the results from my laptop
                ╭────────────┬────────────╮
                │ portable   │ AVX2       │
 ╭──────────────┼────────────┼────────────┤
-│ blake2b_simd │ 0.771 GB/s │ 1.005 GB/s │
+│ blake2b_rfc  │ 0.771 GB/s │ 1.005 GB/s │
 │ libsodium    │ 0.743 GB/s │ 0.939 GB/s │
 ╰──────────────┴────────────┴────────────╯
 ```
@@ -91,8 +91,8 @@ The `benches/bench_b2sum.py` script benchmarks `b2sum` against several Coreutils
 
 ```table
 ╭───────────────────────────┬────────────╮
-│ blake2b_simd b2sum --mmap │ 0.676 GB/s │
-│ blake2b_simd b2sum        │ 0.649 GB/s │
+│ blake2b_rfc  b2sum --mmap │ 0.676 GB/s │
+│ blake2b_rfc  b2sum        │ 0.649 GB/s │
 │ coreutils sha1sum         │ 0.628 GB/s │
 │ coreutils b2sum           │ 0.536 GB/s │
 │ coreutils md5sum          │ 0.476 GB/s │
