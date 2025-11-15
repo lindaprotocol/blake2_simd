@@ -22,7 +22,7 @@ This crate includes:
 # Example
 
 ```
-use blake2s_simd::{blake2s, Params};
+use blake2s_rfc::{blake2s, Params};
 
 let expected = "08d6cad88075de8f192db097573d0e829411cd91eb6ec65e8fc16c017edfdb74";
 let hash = blake2s(b"foo");

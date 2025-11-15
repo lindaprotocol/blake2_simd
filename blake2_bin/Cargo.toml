@@ -4,7 +4,7 @@ version = "1.0.1"
 authors = ["Jack O'Connor"]
 description = "a command line implementation of BLAKE2b/s/bp/sp and all their parameters"
 license = "MIT"
-repository = "https://github.com/oconnor663/blake2_simd/tree/master/blake2_bin"
+repository = "https://github.com/oconnor663/blake2_rfc/tree/master/blake2_bin"
 readme = "README.md"
 keywords = ["blake2b", "blake2bp", "blake2s", "blake2sp", "blake2"]
 edition = "2018"
@@ -14,8 +14,8 @@ name = "blake2"
 path = "src/main.rs"
 
 [dependencies]
-blake2b_simd = { path = "../blake2b", version = "1" }
-blake2s_simd = { path = "../blake2s", version = "1" }
+blake2b_rfc = { path = "../blake2b", version = "1" }
+blake2s_rfc = { path = "../blake2s", version = "1" }
 failure = "0.1.5"
 hex = "0.4.0"
 memmap = "0.7.0"

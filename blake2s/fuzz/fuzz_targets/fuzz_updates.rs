@@ -1,7 +1,7 @@
 #![no_main]
 use libfuzzer_sys::{fuzz_target, arbitrary};
 
-use blake2s_simd::{OUTBYTES, KEYBYTES, Params, PERSONALBYTES};
+use blake2s_rfc::{OUTBYTES, KEYBYTES, Params, PERSONALBYTES};
 
 #[derive(arbitrary::Arbitrary, Debug)]
 pub struct Wrapper {

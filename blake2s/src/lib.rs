@@ -22,7 +22,7 @@
 //! # Example
 //!
 //! ```
-//! use blake2s_simd::{blake2s, Params};
+//! use blake2s_rfc::{blake2s, Params};
 //!
 //! let expected = "08d6cad88075de8f192db097573d0e829411cd91eb6ec65e8fc16c017edfdb74";
 //! let hash = blake2s(b"foo");
@@ -98,7 +98,7 @@ const SIGMA: [[u8; 16]; 10] = [
 /// # Example
 ///
 /// ```
-/// # use blake2s_simd::{blake2s, Params};
+/// # use blake2s_rfc::{blake2s, Params};
 /// let expected = "08d6cad88075de8f192db097573d0e829411cd91eb6ec65e8fc16c017edfdb74";
 /// let hash = blake2s(b"foo");
 /// assert_eq!(expected, &hash.to_hex());
@@ -119,7 +119,7 @@ pub fn blake2s(input: &[u8]) -> Hash {
 /// # Example
 ///
 /// ```
-/// # use blake2s_simd::Params;
+/// # use blake2s_rfc::Params;
 /// // Create a Params object with a secret key and a non-default length.
 /// let mut params = Params::new();
 /// params.key(b"my secret key");
@@ -367,9 +367,9 @@ impl fmt::Debug for Params {
 /// # Example
 ///
 /// ```
-/// use blake2s_simd::{State, blake2s};
+/// use blake2s_rfc::{State, blake2s};
 ///
-/// let mut state = blake2s_simd::State::new();
+/// let mut state = blake2s_rfc::State::new();
 ///
 /// state.update(b"foo");
 /// assert_eq!(blake2s(b"foo"), state.finalize());

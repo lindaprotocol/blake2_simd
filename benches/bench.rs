@@ -50,93 +50,93 @@ impl RandomInput {
 
 #[bench]
 fn bench_oneblock_blake2b_avx2(b: &mut Bencher) {
-    let mut input = RandomInput::new(b, blake2b_simd::BLOCKBYTES);
-    b.iter(|| blake2b_simd::blake2b(input.get()));
+    let mut input = RandomInput::new(b, blake2b_rfc::BLOCKBYTES);
+    b.iter(|| blake2b_rfc::blake2b(input.get()));
 }
 
 #[bench]
 fn bench_onebyte_blake2b_avx2(b: &mut Bencher) {
-    b.iter(|| blake2b_simd::blake2b(b"x"));
+    b.iter(|| blake2b_rfc::blake2b(b"x"));
 }
 
 #[bench]
 fn bench_long_blake2b_avx2(b: &mut Bencher) {
     let mut input = RandomInput::new(b, LONG);
-    b.iter(|| blake2b_simd::blake2b(input.get()));
+    b.iter(|| blake2b_rfc::blake2b(input.get()));
 }
 
 #[bench]
 fn bench_oneblock_blake2b_portable(b: &mut Bencher) {
-    let mut input = RandomInput::new(b, blake2b_simd::BLOCKBYTES);
-    let mut params = blake2b_simd::Params::new();
-    blake2b_simd::benchmarks::force_portable(&mut params);
+    let mut input = RandomInput::new(b, blake2b_rfc::BLOCKBYTES);
+    let mut params = blake2b_rfc::Params::new();
+    blake2b_rfc::benchmarks::force_portable(&mut params);
     b.iter(|| params.hash(input.get()));
 }
 
 #[bench]
 fn bench_long_blake2b_portable(b: &mut Bencher) {
     let mut input = RandomInput::new(b, LONG);
-    let mut params = blake2b_simd::Params::new();
-    blake2b_simd::benchmarks::force_portable(&mut params);
+    let mut params = blake2b_rfc::Params::new();
+    blake2b_rfc::benchmarks::force_portable(&mut params);
     b.iter(|| params.hash(input.get()));
 }
 
 #[bench]
 fn bench_oneblock_blake2s_sse41(b: &mut Bencher) {
-    let mut input = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    b.iter(|| blake2s_simd::blake2s(input.get()));
+    let mut input = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    b.iter(|| blake2s_rfc::blake2s(input.get()));
 }
 
 #[bench]
 fn bench_onebyte_blake2s_sse41(b: &mut Bencher) {
-    b.iter(|| blake2s_simd::blake2s(b"x"));
+    b.iter(|| blake2s_rfc::blake2s(b"x"));
 }
 
 #[bench]
 fn bench_long_blake2s_sse41(b: &mut Bencher) {
     let mut input = RandomInput::new(b, LONG);
-    b.iter(|| blake2s_simd::blake2s(input.get()));
+    b.iter(|| blake2s_rfc::blake2s(input.get()));
 }
 
 #[bench]
 fn bench_oneblock_blake2s_portable(b: &mut Bencher) {
-    let mut input = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut params = blake2s_simd::Params::new();
-    blake2s_simd::benchmarks::force_portable(&mut params);
+    let mut input = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut params = blake2s_rfc::Params::new();
+    blake2s_rfc::benchmarks::force_portable(&mut params);
     b.iter(|| params.hash(input.get()));
 }
 
 #[bench]
 fn bench_long_blake2s_portable(b: &mut Bencher) {
     let mut input = RandomInput::new(b, LONG);
-    let mut params = blake2s_simd::Params::new();
-    blake2s_simd::benchmarks::force_portable(&mut params);
+    let mut params = blake2s_rfc::Params::new();
+    blake2s_rfc::benchmarks::force_portable(&mut params);
     b.iter(|| params.hash(input.get()));
 }
 
 #[bench]
 fn bench_long_blake2bp(b: &mut Bencher) {
     let mut input = RandomInput::new(b, LONG);
-    b.iter(|| blake2b_simd::blake2bp::blake2bp(input.get()));
+    b.iter(|| blake2b_rfc::blake2bp::blake2bp(input.get()));
 }
 
 #[bench]
 fn bench_long_blake2sp(b: &mut Bencher) {
     let mut input = RandomInput::new(b, LONG);
-    b.iter(|| blake2s_simd::blake2sp::blake2sp(input.get()));
+    b.iter(|| blake2s_rfc::blake2sp::blake2sp(input.get()));
 }
 
 #[bench]
 fn bench_long_blake2b_many_2x(b: &mut Bencher) {
     let mut input0 = RandomInput::new(b, LONG);
     let mut input1 = RandomInput::new(b, LONG);
-    let params = blake2b_simd::Params::new();
+    let params = blake2b_rfc::Params::new();
     b.iter(|| {
         let mut jobs = [
-            blake2b_simd::many::HashManyJob::new(&params, input0.get()),
-            blake2b_simd::many::HashManyJob::new(&params, input1.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input0.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input1.get()),
         ];
-        blake2b_simd::many::hash_many(jobs.iter_mut());
+        blake2b_rfc::many::hash_many(jobs.iter_mut());
         [jobs[0].to_hash(), jobs[1].to_hash()]
     });
 }
@@ -147,15 +147,15 @@ fn bench_long_blake2b_many_4x(b: &mut Bencher) {
     let mut input1 = RandomInput::new(b, LONG);
     let mut input2 = RandomInput::new(b, LONG);
     let mut input3 = RandomInput::new(b, LONG);
-    let params = blake2b_simd::Params::new();
+    let params = blake2b_rfc::Params::new();
     b.iter(|| {
         let mut jobs = [
-            blake2b_simd::many::HashManyJob::new(&params, input0.get()),
-            blake2b_simd::many::HashManyJob::new(&params, input1.get()),
-            blake2b_simd::many::HashManyJob::new(&params, input2.get()),
-            blake2b_simd::many::HashManyJob::new(&params, input3.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input0.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input1.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input2.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input3.get()),
         ];
-        blake2b_simd::many::hash_many(jobs.iter_mut());
+        blake2b_rfc::many::hash_many(jobs.iter_mut());
         [
             jobs[0].to_hash(),
             jobs[1].to_hash(),
@@ -171,15 +171,15 @@ fn bench_long_blake2s_many_4x(b: &mut Bencher) {
     let mut input1 = RandomInput::new(b, LONG);
     let mut input2 = RandomInput::new(b, LONG);
     let mut input3 = RandomInput::new(b, LONG);
-    let params = blake2s_simd::Params::new();
+    let params = blake2s_rfc::Params::new();
     b.iter(|| {
         let mut jobs = [
-            blake2s_simd::many::HashManyJob::new(&params, input0.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input1.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input2.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input3.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input0.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input1.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input2.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input3.get()),
         ];
-        blake2s_simd::many::hash_many(jobs.iter_mut());
+        blake2s_rfc::many::hash_many(jobs.iter_mut());
         [
             jobs[0].to_hash(),
             jobs[1].to_hash(),
@@ -199,19 +199,19 @@ fn bench_long_blake2s_many_8x(b: &mut Bencher) {
     let mut input5 = RandomInput::new(b, LONG);
     let mut input6 = RandomInput::new(b, LONG);
     let mut input7 = RandomInput::new(b, LONG);
-    let params = blake2s_simd::Params::new();
+    let params = blake2s_rfc::Params::new();
     b.iter(|| {
         let mut jobs = [
-            blake2s_simd::many::HashManyJob::new(&params, input0.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input1.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input2.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input3.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input4.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input5.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input6.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input7.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input0.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input1.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input2.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input3.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input4.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input5.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input6.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input7.get()),
         ];
-        blake2s_simd::many::hash_many(jobs.iter_mut());
+        blake2s_rfc::many::hash_many(jobs.iter_mut());
         [
             jobs[0].to_hash(),
             jobs[1].to_hash(),
@@ -227,34 +227,34 @@ fn bench_long_blake2s_many_8x(b: &mut Bencher) {
 
 #[bench]
 fn bench_oneblock_blake2b_many_2x(b: &mut Bencher) {
-    let mut input0 = RandomInput::new(b, blake2b_simd::BLOCKBYTES);
-    let mut input1 = RandomInput::new(b, blake2b_simd::BLOCKBYTES);
-    let params = blake2b_simd::Params::new();
+    let mut input0 = RandomInput::new(b, blake2b_rfc::BLOCKBYTES);
+    let mut input1 = RandomInput::new(b, blake2b_rfc::BLOCKBYTES);
+    let params = blake2b_rfc::Params::new();
     b.iter(|| {
         let mut jobs = [
-            blake2b_simd::many::HashManyJob::new(&params, input0.get()),
-            blake2b_simd::many::HashManyJob::new(&params, input1.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input0.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input1.get()),
         ];
-        blake2b_simd::many::hash_many(jobs.iter_mut());
+        blake2b_rfc::many::hash_many(jobs.iter_mut());
         [jobs[0].to_hash(), jobs[1].to_hash()]
     });
 }
 
 #[bench]
 fn bench_oneblock_blake2b_many_4x(b: &mut Bencher) {
-    let mut input0 = RandomInput::new(b, blake2b_simd::BLOCKBYTES);
-    let mut input1 = RandomInput::new(b, blake2b_simd::BLOCKBYTES);
-    let mut input2 = RandomInput::new(b, blake2b_simd::BLOCKBYTES);
-    let mut input3 = RandomInput::new(b, blake2b_simd::BLOCKBYTES);
-    let params = blake2b_simd::Params::new();
+    let mut input0 = RandomInput::new(b, blake2b_rfc::BLOCKBYTES);
+    let mut input1 = RandomInput::new(b, blake2b_rfc::BLOCKBYTES);
+    let mut input2 = RandomInput::new(b, blake2b_rfc::BLOCKBYTES);
+    let mut input3 = RandomInput::new(b, blake2b_rfc::BLOCKBYTES);
+    let params = blake2b_rfc::Params::new();
     b.iter(|| {
         let mut jobs = [
-            blake2b_simd::many::HashManyJob::new(&params, input0.get()),
-            blake2b_simd::many::HashManyJob::new(&params, input1.get()),
-            blake2b_simd::many::HashManyJob::new(&params, input2.get()),
-            blake2b_simd::many::HashManyJob::new(&params, input3.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input0.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input1.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input2.get()),
+            blake2b_rfc::many::HashManyJob::new(&params, input3.get()),
         ];
-        blake2b_simd::many::hash_many(jobs.iter_mut());
+        blake2b_rfc::many::hash_many(jobs.iter_mut());
         [
             jobs[0].to_hash(),
             jobs[1].to_hash(),
@@ -266,19 +266,19 @@ fn bench_oneblock_blake2b_many_4x(b: &mut Bencher) {
 
 #[bench]
 fn bench_oneblock_blake2s_many_4x(b: &mut Bencher) {
-    let mut input0 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut input1 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut input2 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut input3 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let params = blake2s_simd::Params::new();
+    let mut input0 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut input1 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut input2 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut input3 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let params = blake2s_rfc::Params::new();
     b.iter(|| {
         let mut jobs = [
-            blake2s_simd::many::HashManyJob::new(&params, input0.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input1.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input2.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input3.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input0.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input1.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input2.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input3.get()),
         ];
-        blake2s_simd::many::hash_many(jobs.iter_mut());
+        blake2s_rfc::many::hash_many(jobs.iter_mut());
         [
             jobs[0].to_hash(),
             jobs[1].to_hash(),
@@ -290,27 +290,27 @@ fn bench_oneblock_blake2s_many_4x(b: &mut Bencher) {
 
 #[bench]
 fn bench_oneblock_blake2s_many_8x(b: &mut Bencher) {
-    let mut input0 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut input1 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut input2 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut input3 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut input4 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut input5 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut input6 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let mut input7 = RandomInput::new(b, blake2s_simd::BLOCKBYTES);
-    let params = blake2s_simd::Params::new();
+    let mut input0 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut input1 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut input2 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut input3 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut input4 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut input5 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut input6 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let mut input7 = RandomInput::new(b, blake2s_rfc::BLOCKBYTES);
+    let params = blake2s_rfc::Params::new();
     b.iter(|| {
         let mut jobs = [
-            blake2s_simd::many::HashManyJob::new(&params, input0.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input1.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input2.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input3.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input4.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input5.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input6.get()),
-            blake2s_simd::many::HashManyJob::new(&params, input7.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input0.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input1.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input2.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input3.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input4.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input5.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input6.get()),
+            blake2s_rfc::many::HashManyJob::new(&params, input7.get()),
         ];
-        blake2s_simd::many::hash_many(jobs.iter_mut());
+        blake2s_rfc::many::hash_many(jobs.iter_mut());
         [
             jobs[0].to_hash(),
             jobs[1].to_hash(),
@@ -326,7 +326,7 @@ fn bench_oneblock_blake2s_many_8x(b: &mut Bencher) {
 
 // Note for comparison: The blake2-avx2-sneves C code is currently compiled
 // with `clang -mavx2`. That is, not with -march=native. Upstream uses
-// -march=native, but -mavx2 is closer to how blake2b_simd is compiled, and it
+// -march=native, but -mavx2 is closer to how blake2b_rfc is compiled, and it
 // makes the benchmark more apples-to-apples. When I compare compilers, GCC
 // seems to produce better code than clang under -mavx2, but Clang seems to
 // produce better code under -march=native. Not sure why.
@@ -354,9 +354,9 @@ fn bench_long_sneves_blake2sp(b: &mut Bencher) {
 // Note for comparison: Unlike the blake2-avx2-sneves C code above, the
 // KangarooTwelve C code *is* compiled with -march=native. Their build system
 // is more involved than above, and I don't want to muck around with it.
-// Current benchmarks are almost exactly on par with blake2b_simd, maybe just a
+// Current benchmarks are almost exactly on par with blake2b_rfc, maybe just a
 // hair faster, which is a surprising coincidence. However, with the equivalent
-// flag RUSTFLAGS="-C target-cpu=native", blake2b_simd pulls ahead.
+// flag RUSTFLAGS="-C target-cpu=native", blake2b_rfc pulls ahead.
 #[cfg(feature = "kangarootwelve")]
 #[bench]
 fn bench_verylong_kangarootwelve(b: &mut Bencher) {

@@ -18,10 +18,15 @@ An implementation of the BLAKE2(b/s/bp/sp) family of hash functions with:
 - Support for computing multiple BLAKE2b and BLAKE2s hashes in parallel, matching the
   efficiency of BLAKE2bp and BLAKE2sp. See the `many` module in each crate.
 
+For Zksnark package dependancy use this branch.
+```sh
+git clone --branch 0.2.5-linda https://github.com/lindaprotocol/blake2_simd.git blake2-rfc
+```
+
 ## Example
 
 ```rust
-use blake2b_simd::{blake2b, Params};
+use blake2b_rfc::{blake2b, Params};
 
 let expected = "ca002330e69d3e6b84a46a56a6533fd79d51d97a3bb7cad6c2ff43b354185d6d\
                 c1e723fb3db4ae0737e120378424c714bb982d9dc5bbd7a0ab318240ddd18f8d";
@@ -69,14 +74,14 @@ variability. Here are the results from my laptop for `cargo run
 ```table
 ╭─────────────────────────┬──────────╮
 │ BLAKE3                  │ 0.95 cpb │
-│ blake2s_simd many::hash │ 1.31 cpb │
-│ blake2s_simd BLAKE2sp   │ 1.32 cpb │
-│ blake2b_simd many::hash │ 1.43 cpb │
-│ blake2b_simd BLAKE2bp   │ 1.44 cpb │
-│ blake2b_simd BLAKE2b    │ 2.81 cpb │
+│ blake2s_rfc  many::hash │ 1.31 cpb │
+│ blake2s_rfc  BLAKE2sp   │ 1.32 cpb │
+│ blake2b_rfc  many::hash │ 1.43 cpb │
+│ blake2b_rfc  BLAKE2bp   │ 1.44 cpb │
+│ blake2b_rfc  BLAKE2b    │ 2.81 cpb │
 │ libsodium BLAKE2b       │ 3.07 cpb │
 │ OpenSSL SHA-1           │ 3.51 cpb │
-│ blake2s_simd BLAKE2s    │ 4.66 cpb │
+│ blake2s_rfc  BLAKE2s    │ 4.66 cpb │
 │ OpenSSL SHA-512         │ 5.11 cpb │
 ╰─────────────────────────┴──────────╯
 ```

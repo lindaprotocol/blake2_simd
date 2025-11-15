@@ -1,7 +1,7 @@
 # blake2b_simd [![GitHub](https://img.shields.io/github/tag/oconnor663/blake2_simd.svg?label=GitHub)](https://github.com/oconnor663/blake2_simd) [![crates.io](https://img.shields.io/crates/v/blake2b_simd.svg)](https://crates.io/crates/blake2b_simd) [![Actions Status](https://github.com/oconnor663/blake2_simd/workflows/tests/badge.svg)](https://github.com/oconnor663/blake2_simd/actions)
 
 An implementation of the BLAKE2b and BLAKE2bp hash functions. See also
-[`blake2s_simd`](../blake2s).
+[`blake2s_rfc`](../blake2s).
 
 This crate includes:
 
@@ -22,7 +22,7 @@ This crate includes:
 # Example
 
 ```
-use blake2b_simd::{blake2b, Params};
+use blake2b_rfc::{blake2b, Params};
 
 let expected = "ca002330e69d3e6b84a46a56a6533fd79d51d97a3bb7cad6c2ff43b354185d6d\
                 c1e723fb3db4ae0737e120378424c714bb982d9dc5bbd7a0ab318240ddd18f8d";

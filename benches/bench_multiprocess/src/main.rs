@@ -28,7 +28,7 @@
 //! memory allocator produces, which 1) isn't random at all and 2) probably
 //! varies depending on memory pressure. But such is life for benchmarks.
 
-extern crate blake2b_simd;
+extern crate blake2b_rfc;
 
 use rand::seq::SliceRandom;
 use rand::RngCore;
@@ -50,12 +50,12 @@ const BENCH_LEN: usize = 1_000_000;
 
 static ALGOS: &[(&str, HashBench)] = &[
     ("blake3", hash_blake3),
-    ("blake2b_simd BLAKE2b", blake2b_hash),
-    ("blake2b_simd many", blake2b_hash_many),
-    ("blake2b_simd BLAKE2bp", hash_blake2bp),
-    ("blake2s_simd BLAKE2s", blake2s_hash),
-    ("blake2s_simd many", blake2s_hash_many),
-    ("blake2s_simd BLAKE2sp", hash_blake2sp),
+    ("blake2b_rfc BLAKE2b", blake2b_hash),
+    ("blake2b_rfc many", blake2b_hash_many),
+    ("blake2b_rfc BLAKE2bp", hash_blake2bp),
+    ("blake2s_rfc BLAKE2s", blake2s_hash),
+    ("blake2s_rfc many", blake2s_hash_many),
+    ("blake2s_rfc BLAKE2sp", hash_blake2sp),
     ("sneves BLAKE2b", hash_sneves_blake2b),
     ("sneves BLAKE2bp", hash_sneves_blake2bp),
     ("sneves BLAKE2sp", hash_sneves_blake2sp),
@@ -81,34 +81,34 @@ fn bench(mut f: impl FnMut()) -> u128 {
 fn blake2b_hash() -> u128 {
     let mut input = OffsetInput::new(BENCH_LEN);
     bench(|| {
-        blake2b_simd::blake2b(input.get());
+        blake2b_rfc::blake2b(input.get());
     })
 }
 
 fn blake2s_hash() -> u128 {
     let mut input = OffsetInput::new(BENCH_LEN);
     bench(|| {
-        blake2s_simd::blake2s(input.get());
+        blake2s_rfc::blake2s(input.get());
     })
 }
 
 // This one does each run with N=degree inputs at the same offset. This leads
 // to an offset effect comparable to what we see with BLAKE2bp.
 // fn blake2b_hash_many_correlated() -> u128 {
-//     let degree = blake2b_simd::many::degree();
+//     let degree = blake2b_rfc::many::degree();
 //     let bench_len = BENCH_LEN / degree;
 //     let mut inputs = Vec::new();
 //     for _ in 0..degree {
 //         inputs.push(OffsetInput::new(bench_len));
 //     }
-//     let params = blake2b_simd::Params::new();
+//     let params = blake2b_rfc::Params::new();
 //     bench(|| {
-//         let mut jobs = arrayvec::ArrayVec::<_, { blake2b_simd::many::MAX_DEGREE }>::new();
+//         let mut jobs = arrayvec::ArrayVec::<_, { blake2b_rfc::many::MAX_DEGREE }>::new();
 //         for input in &mut inputs {
-//             let job = blake2b_simd::many::HashManyJob::new(&params, input.get());
+//             let job = blake2b_rfc::many::HashManyJob::new(&params, input.get());
 //             jobs.push(job);
 //         }
-//         blake2b_simd::many::hash_many(&mut jobs);
+//         blake2b_rfc::many::hash_many(&mut jobs);
 //     })
 // }
 
@@ -119,7 +119,7 @@ fn blake2s_hash() -> u128 {
 // hand, the fact that numbers are different is pretty important, and I don't
 // want to bury it.
 fn blake2b_hash_many() -> u128 {
-    let degree = blake2b_simd::many::degree();
+    let degree = blake2b_rfc::many::degree();
     let bench_len = BENCH_LEN / degree;
     let mut inputs = Vec::new();
     for _ in 0..degree {
@@ -127,19 +127,19 @@ fn blake2b_hash_many() -> u128 {
         offset_input.offsets.shuffle();
         inputs.push(OffsetInput::new(bench_len));
     }
-    let params = blake2b_simd::Params::new();
+    let params = blake2b_rfc::Params::new();
     bench(|| {
-        let mut jobs = arrayvec::ArrayVec::<_, { blake2b_simd::many::MAX_DEGREE }>::new();
+        let mut jobs = arrayvec::ArrayVec::<_, { blake2b_rfc::many::MAX_DEGREE }>::new();
         for input in &mut inputs {
-            let job = blake2b_simd::many::HashManyJob::new(&params, input.get());
+            let job = blake2b_rfc::many::HashManyJob::new(&params, input.get());
             jobs.push(job);
         }
-        blake2b_simd::many::hash_many(&mut jobs);
+        blake2b_rfc::many::hash_many(&mut jobs);
     })
 }
 
 fn blake2s_hash_many() -> u128 {
-    let degree = blake2s_simd::many::degree();
+    let degree = blake2s_rfc::many::degree();
     let bench_len = BENCH_LEN / degree;
     let mut inputs = Vec::new();
     for _ in 0..degree {
@@ -147,28 +147,28 @@ fn blake2s_hash_many() -> u128 {
         offset_input.offsets.shuffle();
         inputs.push(OffsetInput::new(bench_len));
     }
-    let params = blake2s_simd::Params::new();
+    let params = blake2s_rfc::Params::new();
     bench(|| {
-        let mut jobs = arrayvec::ArrayVec::<_, { blake2s_simd::many::MAX_DEGREE }>::new();
+        let mut jobs = arrayvec::ArrayVec::<_, { blake2s_rfc::many::MAX_DEGREE }>::new();
         for input in &mut inputs {
-            let job = blake2s_simd::many::HashManyJob::new(&params, input.get());
+            let job = blake2s_rfc::many::HashManyJob::new(&params, input.get());
             jobs.push(job);
         }
-        blake2s_simd::many::hash_many(&mut jobs);
+        blake2s_rfc::many::hash_many(&mut jobs);
     })
 }
 
 fn hash_blake2bp() -> u128 {
     let mut input = OffsetInput::new(BENCH_LEN);
     bench(|| {
-        blake2b_simd::blake2bp::blake2bp(input.get());
+        blake2b_rfc::blake2bp::blake2bp(input.get());
     })
 }
 
 fn hash_blake2sp() -> u128 {
     let mut input = OffsetInput::new(BENCH_LEN);
     bench(|| {
-        blake2s_simd::blake2sp::blake2sp(input.get());
+        blake2s_rfc::blake2sp::blake2sp(input.get());
     })
 }
 

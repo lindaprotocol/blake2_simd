@@ -19,7 +19,7 @@
 //! # Example
 //!
 //! ```
-//! use blake2b_simd::{blake2b, State, many::update_many};
+//! use blake2b_rfc::{blake2b, State, many::update_many};
 //!
 //! let mut states = [
 //!     State::new(),
@@ -188,7 +188,7 @@ pub(crate) fn compress_many<'a, 'b, I>(
 /// # Example
 ///
 /// ```
-/// use blake2b_simd::{blake2b, State, many::update_many};
+/// use blake2b_rfc::{blake2b, State, many::update_many};
 ///
 /// let mut states = [
 ///     State::new(),
@@ -357,7 +357,7 @@ impl<'a> fmt::Debug for HashManyJob<'a> {
 /// # Example
 ///
 /// ```
-/// use blake2b_simd::{blake2b, Params, many::{HashManyJob, hash_many}};
+/// use blake2b_rfc::{blake2b, Params, many::{HashManyJob, hash_many}};
 ///
 /// let inputs = [
 ///     &b"foo"[..],

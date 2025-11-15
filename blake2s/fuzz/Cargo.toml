@@ -1,6 +1,6 @@
 
 [package]
-name = "blake2s_simd-fuzz"
+name = "blake2s_rfc-fuzz"
 version = "0.0.0"
 authors = ["Kirk Baird"]
 publish = false
@@ -12,7 +12,7 @@ cargo-fuzz = true
 [dependencies]
 libfuzzer-sys = { version = "0.3", features = ["arbitrary-derive"] }
 
-[dependencies.blake2s_simd]
+[dependencies.blake2s_rfc]
 path = ".."
 
 # Prevent this from interfering with workspaces

@@ -7,7 +7,7 @@
 //! # Example
 //!
 //! ```
-//! use blake2s_simd::blake2sp;
+//! use blake2s_rfc::blake2sp;
 //!
 //! let hash = blake2sp::Params::new()
 //!     .hash_length(16)
@@ -43,7 +43,7 @@ pub(crate) const DEGREE: usize = 8;
 /// # Example
 ///
 /// ```
-/// # use blake2s_simd::blake2sp::blake2sp;
+/// # use blake2s_rfc::blake2sp::blake2sp;
 /// let expected = "050dc5786037ea72cb9ed9d0324afcab03c97ec02e8c47368fc5dfb4cf49d8c9";
 /// let hash = blake2sp(b"foo");
 /// assert_eq!(expected, &hash.to_hex());
@@ -62,7 +62,7 @@ pub fn blake2sp(input: &[u8]) -> Hash {
 /// # Example
 ///
 /// ```
-/// use blake2s_simd::blake2sp;
+/// use blake2s_rfc::blake2sp;
 /// let mut state = blake2sp::Params::new().hash_length(32).to_state();
 /// ```
 #[derive(Clone)]
@@ -211,7 +211,7 @@ impl fmt::Debug for Params {
 /// # Example
 ///
 /// ```
-/// use blake2s_simd::blake2sp;
+/// use blake2s_rfc::blake2sp;
 ///
 /// let mut state = blake2sp::State::new();
 /// state.update(b"foo");

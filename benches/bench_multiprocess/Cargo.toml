@@ -5,8 +5,8 @@ authors = ["Jack O'Connor <oconnor663@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-blake2b_simd = { path = "../../blake2b" }
-blake2s_simd = { path = "../../blake2s" }
+blake2b_rfc = { path = "../../blake2b" }
+blake2s_rfc = { path = "../../blake2s" }
 blake3 = { version = "0.2.1", features = ["c"] }
 rand = "0.6.5"
 openssl = "0.10.23"

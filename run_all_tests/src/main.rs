@@ -55,7 +55,7 @@ fn main() {
     // larger iteration count.
     run_cargo_cmd(".", &["test", "--release"]);
 
-    // Test the uninline_portable feature of blake2b_simd.
+    // Test the uninline_portable feature of blake2b_rfc.
     run_cargo_cmd(
         "blake2b",
         &["test", "--release", "--features=uninline_portable"],

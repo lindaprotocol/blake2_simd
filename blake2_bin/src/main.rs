@@ -74,10 +74,10 @@ struct Opt {
 }
 
 enum Params {
-    Blake2b(blake2b_simd::Params),
-    Blake2bp(blake2b_simd::blake2bp::Params),
-    Blake2s(blake2s_simd::Params),
-    Blake2sp(blake2s_simd::blake2sp::Params),
+    Blake2b(blake2b_rfc::Params),
+    Blake2bp(blake2b_rfc::blake2bp::Params),
+    Blake2s(blake2s_rfc::Params),
+    Blake2sp(blake2s_rfc::blake2sp::Params),
 }
 
 impl Params {
@@ -93,10 +93,10 @@ impl Params {
 
 #[derive(Clone)]
 enum State {
-    Blake2b(blake2b_simd::State),
-    Blake2bp(blake2b_simd::blake2bp::State),
-    Blake2s(blake2s_simd::State),
-    Blake2sp(blake2s_simd::blake2sp::State),
+    Blake2b(blake2b_rfc::State),
+    Blake2bp(blake2b_rfc::blake2bp::State),
+    Blake2s(blake2s_rfc::State),
+    Blake2sp(blake2s_rfc::blake2sp::State),
 }
 
 impl State {
@@ -178,15 +178,15 @@ fn make_params(opt: &Opt) -> Result<Params, Error> {
     }
     let mut params = if opt.small {
         if opt.parallel {
-            Params::Blake2sp(blake2s_simd::blake2sp::Params::new())
+            Params::Blake2sp(blake2s_rfc::blake2sp::Params::new())
         } else {
-            Params::Blake2s(blake2s_simd::Params::new())
+            Params::Blake2s(blake2s_rfc::Params::new())
         }
     } else {
         if opt.parallel {
-            Params::Blake2bp(blake2b_simd::blake2bp::Params::new())
+            Params::Blake2bp(blake2b_rfc::blake2bp::Params::new())
         } else {
-            Params::Blake2b(blake2b_simd::Params::new())
+            Params::Blake2b(blake2b_rfc::Params::new())
         }
     };
     if let Some(length) = opt.length {

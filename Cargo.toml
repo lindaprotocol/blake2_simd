@@ -4,28 +4,28 @@
 # with --no-default-features, to test the no_std case.
 
 [package]
-name = "blake2_simd_root"
+name = "blake2-rfc"
 version = "0.0.0"
 authors = ["Jack O'Connor"]
 description = "a pure Rust BLAKE2b implementation with dynamic SIMD"
 license = "MIT"
-repository = "https://github.com/oconnor663/blake2b_simd"
+repository = "https://github.com/indaprotocol/blake2b_simd"
 documentation = "https://docs.rs/blake2b_simd"
 readme = "README.md"
 edition = "2018"
 
 [features]
 # Note that this root crates never builds itself with no_std. The "std" feature
-# only controls whether blake2b_simd and blake2s_simd build with no_std.
+# only controls whether blake2b_rfc and blake2s_rfc build with no_std.
 default = ["std"]
-std = ["blake2b_simd/std", "blake2s_simd/std"]
+std = ["blake2b_rfc/std", "blake2s_rfc/std"]
 # only for benchmarks
 kangarootwelve = ["kangarootwelve_xkcp"]
 
 [dependencies]
 arrayvec = "0.7.0"
-blake2b_simd = { path = "./blake2b", default-features = false }
-blake2s_simd = { path = "./blake2s", default-features = false }
+blake2b_rfc = { path = "./blake2b", default-features = false }
+blake2s_rfc = { path = "./blake2s", default-features = false }
 blake2-avx2-sneves = { path = "benches/blake2-avx2-sneves", optional = true }
 hex = "0.3.2"
 kangarootwelve_xkcp = { version = "0.1.5", optional = true }

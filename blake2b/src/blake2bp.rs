@@ -7,7 +7,7 @@
 //! # Example
 //!
 //! ```
-//! use blake2b_simd::blake2bp;
+//! use blake2b_rfc::blake2bp;
 //!
 //! let hash = blake2bp::Params::new()
 //!     .hash_length(16)
@@ -43,7 +43,7 @@ pub(crate) const DEGREE: usize = 4;
 /// # Example
 ///
 /// ```
-/// # use blake2b_simd::blake2bp::blake2bp;
+/// # use blake2b_rfc::blake2bp::blake2bp;
 /// let expected = "8ca9ccee7946afcb686fe7556628b5ba1bf9a691da37ca58cd049354d99f3704\
 ///                 2c007427e5f219b9ab5063707ec6823872dee413ee014b4d02f2ebb6abb5f643";
 /// let hash = blake2bp(b"foo");
@@ -63,7 +63,7 @@ pub fn blake2bp(input: &[u8]) -> Hash {
 /// # Example
 ///
 /// ```
-/// use blake2b_simd::blake2bp;
+/// use blake2b_rfc::blake2bp;
 /// let mut state = blake2bp::Params::new().hash_length(32).to_state();
 /// ```
 #[derive(Clone)]
@@ -203,7 +203,7 @@ impl fmt::Debug for Params {
 /// # Example
 ///
 /// ```
-/// use blake2b_simd::blake2bp;
+/// use blake2b_rfc::blake2bp;
 ///
 /// let mut state = blake2bp::State::new();
 /// state.update(b"foo");

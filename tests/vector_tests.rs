@@ -31,7 +31,7 @@ fn blake2b_vectors() {
             println!("input {:?}, key {:?}", case.in_, case.key);
 
             let input_bytes = hex::decode(&case.in_).unwrap();
-            let mut params = blake2b_simd::Params::new();
+            let mut params = blake2b_rfc::Params::new();
             if !case.key.is_empty() {
                 let key_bytes = hex::decode(&case.key).unwrap();
                 params.key(&key_bytes);
@@ -63,7 +63,7 @@ fn blake2bp_vectors() {
             println!("input {:?}, key {:?}", case.in_, case.key);
 
             let input_bytes = hex::decode(&case.in_).unwrap();
-            let mut params = blake2b_simd::blake2bp::Params::new();
+            let mut params = blake2b_rfc::blake2bp::Params::new();
             if !case.key.is_empty() {
                 let key_bytes = hex::decode(&case.key).unwrap();
                 params.key(&key_bytes);
@@ -95,7 +95,7 @@ fn blake2s_vectors() {
             println!("input {:?}, key {:?}", case.in_, case.key);
 
             let input_bytes = hex::decode(&case.in_).unwrap();
-            let mut params = blake2s_simd::Params::new();
+            let mut params = blake2s_rfc::Params::new();
             if !case.key.is_empty() {
                 let key_bytes = hex::decode(&case.key).unwrap();
                 params.key(&key_bytes);
@@ -127,7 +127,7 @@ fn blake2sp_vectors() {
             println!("input {:?}, key {:?}", case.in_, case.key);
 
             let input_bytes = hex::decode(&case.in_).unwrap();
-            let mut params = blake2s_simd::blake2sp::Params::new();
+            let mut params = blake2s_rfc::blake2sp::Params::new();
             if !case.key.is_empty() {
                 let key_bytes = hex::decode(&case.key).unwrap();
                 params.key(&key_bytes);
@@ -213,7 +213,7 @@ fn blake2x_test<F: Fn(&[u8], &[u8], u64) -> Vec<u8>, F2: Fn(&[u8], u64, usize) -
 fn blake2xs_vectors() {
     let blake2xs_h0_hasher =
         |input_bytes: &[u8], key: &[u8], combined_node_offset_xof_length: u64| -> Vec<u8> {
-            let mut params = blake2s_simd::Params::new();
+            let mut params = blake2s_rfc::Params::new();
             let h0 = params
                 .key(key)
                 .hash_length(32)
@@ -225,7 +225,7 @@ fn blake2xs_vectors() {
         };
     let blake2xs_b2_hasher =
         |input_bytes: &[u8], combined_node_offset_xof_length: u64, hash_length: usize| -> Vec<u8> {
-            let mut params = blake2s_simd::Params::new();
+            let mut params = blake2s_rfc::Params::new();
             let b2_out = params
                 .hash_length(hash_length)
                 .max_leaf_length(32)
@@ -246,7 +246,7 @@ fn blake2xs_vectors() {
 fn blake2xb_vectors() {
     let blake2xb_h0_hasher =
         |input_bytes: &[u8], key: &[u8], combined_node_offset_xof_length: u64| -> Vec<u8> {
-            let mut params = blake2b_simd::Params::new();
+            let mut params = blake2b_rfc::Params::new();
             let h0 = params
                 .key(key)
                 .hash_length(64)
@@ -258,7 +258,7 @@ fn blake2xb_vectors() {
         };
     let blake2xb_b2_hasher =
         |input_bytes: &[u8], combined_node_offset_xof_length: u64, hash_length: usize| -> Vec<u8> {
-            let mut params = blake2b_simd::Params::new();
+            let mut params = blake2b_rfc::Params::new();
             let b2_out = params
                 .hash_length(hash_length)
                 .max_leaf_length(64)
