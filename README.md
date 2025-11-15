@@ -21,6 +21,11 @@ An implementation of the BLAKE2b hash with:
 - An implementation of the multithreaded `blake2bp` variant, provided as an optional Cargo
   feature.
 
+For Zksnark package dependancy use this branch.
+```sh
+git clone --branch 0.2.5-linda https://github.com/lindaprotocol/blake2_simd.git blake2-rfc
+```
+
 ## Example
 
 ```rust
